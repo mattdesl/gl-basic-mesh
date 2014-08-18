@@ -214,7 +214,7 @@ module.exports = function( render, start, options ) {
 		runner.start();
 	});
 };
-},{"canvas-app":5,"domready":7,"raf.js":6}],5:[function(require,module,exports){
+},{"canvas-app":5,"domready":6,"raf.js":7}],5:[function(require,module,exports){
 var getGL = require('webgl-context');
 
 function CanvasApp(render, options) {
@@ -407,6 +407,36 @@ CanvasApp.prototype.resize = function(width, height) {
 
 module.exports = CanvasApp;
 },{"webgl-context":34}],6:[function(require,module,exports){
+/*!
+  * domready (c) Dustin Diaz 2014 - License MIT
+  */
+!function (name, definition) {
+
+  if (typeof module != 'undefined') module.exports = definition()
+  else if (typeof define == 'function' && typeof define.amd == 'object') define(definition)
+  else this[name] = definition()
+
+}('domready', function () {
+
+  var fns = [], listener
+    , doc = document
+    , domContentLoaded = 'DOMContentLoaded'
+    , loaded = /^loaded|^c/.test(doc.readyState)
+
+  if (!loaded)
+  doc.addEventListener(domContentLoaded, listener = function () {
+    doc.removeEventListener(domContentLoaded, listener)
+    loaded = 1
+    while (listener = fns.shift()) listener()
+  })
+
+  return function (fn) {
+    loaded ? fn() : fns.push(fn)
+  }
+
+});
+
+},{}],7:[function(require,module,exports){
 /*
  * raf.js
  * https://github.com/ngryman/raf.js
@@ -448,36 +478,6 @@ module.exports = CanvasApp;
 	window.requestAnimationFrame = requestAnimationFrame;
 	window.cancelAnimationFrame = cancelAnimationFrame;
 }(window));
-
-},{}],7:[function(require,module,exports){
-/*!
-  * domready (c) Dustin Diaz 2014 - License MIT
-  */
-!function (name, definition) {
-
-  if (typeof module != 'undefined') module.exports = definition()
-  else if (typeof define == 'function' && typeof define.amd == 'object') define(definition)
-  else this[name] = definition()
-
-}('domready', function () {
-
-  var fns = [], listener
-    , doc = document
-    , domContentLoaded = 'DOMContentLoaded'
-    , loaded = /^loaded|^c/.test(doc.readyState)
-
-  if (!loaded)
-  doc.addEventListener(domContentLoaded, listener = function () {
-    doc.removeEventListener(domContentLoaded, listener)
-    loaded = 1
-    while (listener = fns.shift()) listener()
-  })
-
-  return function (fn) {
-    loaded ? fn() : fns.push(fn)
-  }
-
-});
 
 },{}],8:[function(require,module,exports){
 var createShader = require('gl-shader-core')
