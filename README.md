@@ -7,7 +7,7 @@ A basic mesh wrapper, similar to [gl-simplicial-complex](https://www.npmjs.org/p
 A typical use case may be rendering a triangulated 2D or 3D mesh with custom shader effects, or inheriting this class for your custom sprite or polygon batcher. For example, [fontpath-gl](https://github.com/mattdesl/fontpath-gl) utilizes this to generate a default shader and create glyph meshes. 
 
 [![demo1](http://i.imgur.com/tlvIlJQ.png)](http://mattdesl.github.io/gl-basic-mesh/demo/index.html)  
-<sup>click to view demo</sup>
+<sup>click to watch it spin</sup>
 
 ## Usage
 
