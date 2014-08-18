@@ -1,0 +1,58 @@
+{
+  "name": "gl-basic-mesh",
+  "version": "1.0.0",
+  "description": "a basic gl mesh wrapper with common vertex attributes",
+  "main": "index.js",
+  "license": "MIT",
+  "author": {
+    "name": "Matt DesLauriers",
+    "email": "dave.des@gmail.com"
+  },
+  "dependencies": {
+    "gl-basic-shader": "^1.0.0",
+    "gl-buffer": "^2.0.8",
+    "gl-shader-core": "^2.1.1",
+    "gl-vao": "^1.1.3"
+  },
+  "devDependencies": {
+    "bunny": "^1.0.1",
+    "cam3d": "^1.0.6",
+    "canvas-testbed": "^0.4.0",
+    "domready": "^1.0.6",
+    "fontpath-renderer": "^0.1.3",
+    "fontpath-shape2d": "0.0.5",
+    "fontpath-test-fonts": "0.0.4",
+    "fontpath-vecmath": "0.0.2",
+    "gl-matrix": "^2.1.0",
+    "gl-quad": "^1.0.0",
+    "gl-vignette-background": "^1.0.2",
+    "shape2d-triangulate": "0.0.2",
+    "tape": "~2.13.2",
+    "vecmath": "^0.1.2",
+    "webgl-context": "^1.2.1"
+  },
+  "scripts": {
+    "test": "tape test.js"
+  },
+  "testling": {
+    "files": "test.js",
+    "browsers": [
+      "ie/6..latest",
+      "chrome/22..latest",
+      "firefox/16..latest",
+      "safari/latest",
+      "opera/11.0..latest",
+      "iphone/6",
+      "ipad/6",
+      "android-browser/latest"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mattdesl/gl-basic-mesh.git"
+  },
+  "homepage": "https://github.com/mattdesl/gl-basic-mesh",
+  "bugs": {
+    "url": "https://github.com/mattdesl/gl-basic-mesh/issues"
+  }
+}
