@@ -1,70 +1,68 @@
+var mat4 = require('gl-matrix').mat4
 var createMesh = require('../')
+var bunny = require("bunny");
 
-var createBackground = require('gl-vignette-background')
-var TestFont = require('fontpath-test-fonts/lib/OpenSans-Regular.ttf');    
-var OrthographicCamera = require('cam3d').OrthographicCamera
-var Matrix4 = require('vecmath').Matrix4
+function concat(a, b) {
+    return a.concat(b)
+}
 
-require('canvas-testbed')(render, start, {
+var gl = require('canvas-testbed')(render, start, {
     context: 'webgl',
+    width: 400,
+    height: 400
 })
 
-// var createFBO = require('gl-fbo')
+var mesh,
+    view,
+    projection,
+    vertCount
 
-var TextRenderer = require('./fontpath-gl')
+function createBunny(gl) {
+    //flatten the arrays
+    var positions = bunny.positions.reduce(concat);
+    var cells = bunny.cells.reduce(concat);
 
-var cam = new OrthographicCamera(),
-    background,
-    renderer
+    return createMesh(gl, {
+        positions: new Float32Array(positions),
+        elements: new Uint16Array(cells)
+    })
+}
 
-function render(gl, width, height) {
-    cam.setToOrtho(true, width, height)
+function start(gl, width, height) {
+    //create our mesh
+    mesh = createBunny(gl)
 
-    gl.disable(gl.CULL_FACE)
-    gl.viewport(0, 0, width, height)
+    //setup our perspective projection
+    projection = mat4.create()
+    mat4.perspective(projection, 50, 1, 1, 1000)
 
-    gl.clearColor(1,1,1,1)
+    //and a view matrix
+    view = mat4.create()
+    mat4.translate(view, view, [0, 5, -50])
+    mat4.scale(view, view, [1, -1, 1])
+}
+
+function render(gl, width, height, dt) {
+    gl.clearColor(0,0,0,1)
     gl.clear(gl.COLOR_BUFFER_BIT)
 
+    mesh.bind()
+
+    //rotate our view transform
+    mat4.rotateY(view, view, dt/1000)
+    mesh.shader.uniforms.view = view
+    mesh.shader.uniforms.projection = projection
+
     gl.enable(gl.BLEND)
-    gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA)
+    gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA)
 
-    var radius = Math.max(height, width) * 1.05
+    //we can apply a global color tint here..
+    mesh.shader.uniforms.tint = [0.5, 0.5, 0.5, 0.5]
+    mesh.draw(gl.POINTS)
 
-    //style background
-    background.style({
-        scale: [ 1/width * radius, 1/height * radius],
-        aspect: 1,
-        color1: [1, 1, 1],
-        color2: [40/255, 56/255, 68/255], //rgb expressed in 0.0 - 1.0
-        smoothing: [ -0.5, 1.0 ],
-        noiseAlpha: 0.07,
-    })
-    background.draw()
+    //draw a few triangles on top
+    mesh.shader.uniforms.tint = [0.6, 0.5, 0.8, 0.9]
+    mesh.draw(gl.TRIANGLES, 2048)
 
-    var pad = 20
-    renderer.layout(window.innerWidth-pad*2); 
-    renderer.projection = cam.combined.val
-
-    var b = renderer.getBounds()
-    var x = width/2 - b.width/2,
-        y = height/2 - b.height/2 - b.y
-
-    // renderer.color = [0.15, 0.15, 0.15, 0.4]
-    // renderer.draw(gl.TRIANGLES, x, y)
-
-    renderer.color = [0.15, 0.15, 0.15, 0.5]
-    renderer.draw(gl.LINES, x, y)
-} 
-
-function start(gl) {
-    background = createBackground(gl)
-
-    renderer = TextRenderer(gl)
-
-    //setup the text renderer
-    renderer.text = 'can you dig it?'.toUpperCase()
-    renderer.font = TestFont;
-    renderer.fontSize = 150;
-    renderer.align = 'center';
+    mesh.unbind()
 }

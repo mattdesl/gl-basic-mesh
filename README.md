@@ -4,9 +4,10 @@
 
 A basic mesh wrapper, similar to [gl-simplicial-complex](https://www.npmjs.org/package/gl-simplicial-complex) but a little lower level. It creates a new shader with [gl-basic-shader](https://github.com/mattdesl/gl-basic-shader).
 
-A typical use case may be rendering a triangulated 2D or 3D mesh with custom shader effects, or inheriting this class for your custom sprite or polygon batcher.
+A typical use case may be rendering a triangulated 2D or 3D mesh with custom shader effects, or inheriting this class for your custom sprite or polygon batcher. For example, [fontpath-gl](https://github.com/mattdesl/fontpath-gl) utilizes this to generate a default shader and create glyph meshes. 
 
-![demo1](http://i.imgur.com/tlvIlJQ.png)
+[![demo1](http://i.imgur.com/tlvIlJQ.png)](http://mattdesl.github.io/gl-basic-mesh/demo/index.html)  
+<sup>click to view demo</sup>
 
 ## Usage
 
@@ -30,7 +31,7 @@ mesh.draw()
 mesh.unbind()
 ```
 
-You can find full demos in the [demo](demo/) folder.
+You can find a full demo in the [demo](demo/) folder.
 
 ### ```mesh = createMesh(gl, options)```
 

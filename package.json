@@ -32,7 +32,8 @@
     "webgl-context": "^1.2.1"
   },
   "scripts": {
-    "test": "tape test.js"
+    "test": "tape test.js",
+    "build": "browserify demo/index.js -o demo/bundle/index.js"
   },
   "testling": {
     "files": "test.js",
