@@ -43,7 +43,7 @@ Creates a mesh where options can be:
 - `colorSize` the number of color components per vertex, default 4
 - `normals` a data type for normals, expects 3 components per vertex
 - `texcoords` a data type for texcoords, expects 2 components per vertex
-- `elements` optional data type (eg. Uint16Array), if specified they will be used for drawing
+- `cells` optional elements data type (eg. Uint16Array), if specified they will be used for drawing
 - `usage` the usage type for vertex attribuets, such as `gl.DYNAMIC_DRAW`. defaults to `gl.STATIC_DRAW`
 - `shader` a shader this mesh will be associated with, otherwise a *new* default shader will be created 
 

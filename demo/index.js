@@ -24,7 +24,7 @@ function createBunny(gl) {
 
     return createMesh(gl, {
         positions: new Float32Array(positions),
-        elements: new Uint16Array(cells)
+        cells: new Uint16Array(cells)
     })
 }
 
