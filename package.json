@@ -1,6 +1,6 @@
 {
   "name": "gl-basic-mesh",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "description": "a basic gl mesh wrapper with common vertex attributes",
   "main": "index.js",
   "license": "MIT",
