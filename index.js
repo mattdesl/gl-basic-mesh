@@ -55,8 +55,8 @@ function BasicMesh(gl, options) {
         })
     }
 
-    if (options.elements) {
-        this.elements = createBuffer(gl, options.elements, gl.ELEMENT_ARRAY_BUFFER, gl.STATIC_DRAW)
+    if (options.cells) {
+        this.elements = createBuffer(gl, options.cells, gl.ELEMENT_ARRAY_BUFFER, gl.STATIC_DRAW)
         this.drawCount = this.elements.length / 2
     }
 
